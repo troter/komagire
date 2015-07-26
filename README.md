@@ -1,8 +1,10 @@
 # Komagire
 
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/komagire`. To experiment with that code, run `bin/console` for an interactive prompt.
+[![Gem Version](https://badge.fury.io/rb/komagire.svg)](http://badge.fury.io/rb/komagire)
+[![Build Status](https://travis-ci.org/troter/komagire.svg?branch=master)](https://travis-ci.org/troter/komagire)
+[![Coverage Status](https://coveralls.io/repos/troter/komagire/badge.svg)](https://coveralls.io/r/troter/komagire)
 
-TODO: Delete this and the text above, and describe your gem
+Compose an object from comma separated keys.
 
 ## Installation
 
@@ -22,7 +24,54 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
+Compose an object from `|` separated keys.
+
+```ruby
+class Tag < ActiveRecord::Base
+end
+
+Tag.create(id: 1, name: 'ruby')
+Tag.create(id: 2, name: 'perl')
+Tag.create(id: 3, name: 'java')
+
+class Post < ActiveRecord::Base
+  composed_of_komagire_key_list :tags, :tag_names, 'Tag', :name, komagire: {delimiter: '|'}
+end
+
+post = Post.new
+post.tags = 'ruby|java'
+post.tags.class # => Komagire::KeyList
+post.tags       # => [#<Tag:0x007f8fea2e46c8 id: 1, name: "ruby">,#<Tag:0x007f8fea2e44c0 id: 3, name: "java">]
+post.save
+post.tag_names  # => '|java|ruby|'
+```
+
+Compose an object from comma separated ids.
+
+```ruby
+class Post < ActiveRecord::Base
+  composed_of_komagire_id_list :tags, :tag_ids, 'Tag'
+end
+
+post = Post.new
+post.tags = '1,2'
+post.tags.class # => Komagire::IdList
+post.tags       # => [#<Tag:0x007f8fea2e46c8 id: 1, name: "ruby">,#<Tag:0x007f8fea2e44c0 id: 3, name: "java">]
+post.save
+post.tag_ids    # => ',1,2,'
+```
+
+Convertion option.
+
+```ruby
+# comma separated ids
+post.tags = '1,2'                      # string
+post.tags = %w[1 2]                    # array of string
+post.tags = [1, 2]                     # array of integer(id)
+post.tags = [Tag.find(1), Tag.find(2)] # array of Tag
+post.tags = Tag.where(id: [1, 2])      # ActiveRecord::Relation
+post.tags = Komagire::IdList.new('Tag', '1,2') # same object
+```
 
 ## Development
 
