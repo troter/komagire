@@ -3,6 +3,7 @@
 [![Gem Version](https://badge.fury.io/rb/komagire.svg)](http://badge.fury.io/rb/komagire)
 [![Build Status](https://travis-ci.org/troter/komagire.svg?branch=master)](https://travis-ci.org/troter/komagire)
 [![Coverage Status](https://coveralls.io/repos/troter/komagire/badge.svg)](https://coveralls.io/r/troter/komagire)
+[![Code Climate](https://codeclimate.com/github/troter/komagire/badges/gpa.svg)](https://codeclimate.com/github/troter/komagire)
 
 Compose an object from comma separated keys.
 
