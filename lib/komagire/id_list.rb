@@ -23,10 +23,6 @@ module Komagire
       Converter.new(@content_class_name, @attribute, @delimiter).convert(cskeys)
     end
 
-    def _keys
-      super.map(&:to_i)
-    end
-
     def _find_by_cskeys
       ancestors = content_class_name.constantize.ancestors.map(&:to_s)
       if ancestors.include?('ActiveHash::Base')
