@@ -36,7 +36,7 @@ Tag.create(id: 2, name: 'perl')
 Tag.create(id: 3, name: 'java')
 
 class Post < ActiveRecord::Base
-  composed_of_komagire_key_list :tags, :tag_names, 'Tag', :name, komagire: {delimiter: '|'}
+  composed_of_komagire_key_list :tags, :tag_names, 'Tag', :name, komagire: {delimiter: '|', sort: true}
 end
 
 post = Post.new
@@ -51,7 +51,7 @@ Compose an object from comma separated ids.
 
 ```ruby
 class Post < ActiveRecord::Base
-  composed_of_komagire_id_list :tags, :tag_ids, 'Tag'
+  composed_of_komagire_id_list :tags, :tag_ids, 'Tag', komagire: {sort: true}
 end
 
 post = Post.new
@@ -71,7 +71,7 @@ post.tags = %w[1 2]                    # array of string
 post.tags = [1, 2]                     # array of integer(id)
 post.tags = [Tag.find(1), Tag.find(2)] # array of Tag
 post.tags = Tag.where(id: [1, 2])      # ActiveRecord::Relation
-post.tags = Komagire::IdList.new('Tag', '1,2') # same object
+post.tags = Komagire::IdList.new('Tag', '1,2', sort: true) # same object
 ```
 
 ## Development

@@ -17,6 +17,7 @@ module Komagire
       @content_class_name = content_class_name
       @attribute = attribute
       @delimiter = options[:delimiter] || Komagire::DEFAULT_DELIMITER
+      @sort = options[:sort] || false
       @cskeys = _convert(cskeys)
       super(_find_by_cskeys)
     end
@@ -25,7 +26,8 @@ module Komagire
     #
     # @return [String]
     def cskeys
-      ([''] + map(&@attribute).sort.uniq + ['']).join(@delimiter)
+      key_values = compact.map(&@attribute).uniq.tap {|values| values.sort! if @sort }
+      ([''] + key_values + ['']).join(@delimiter)
     end
 
     def freeze
@@ -44,11 +46,16 @@ module Komagire
     end
 
     def _keys
-      @cskeys.split(@delimiter).sort.uniq
+      @cskeys.split(@delimiter).uniq
     end
 
     def _find_by_cskeys
-      content_class_name.constantize.where(@attribute => _keys)
+      values = content_class_name.constantize.where(@attribute => _keys).compact
+      if @sort
+        values.sort_by { |v| v.public_send(@attribute) }
+      else
+        values.index_by { |v| v.public_send(@attribute).to_s }.values_at(*_keys)
+      end
     end
 
     class Converter

@@ -26,7 +26,12 @@ module Komagire
     def _find_by_cskeys
       ancestors = content_class_name.constantize.ancestors.map(&:to_s)
       if ancestors.include?('ActiveHash::Base')
-        _keys.map { |id| content_class_name.constantize.find_by_id(id) }.compact
+        values = _keys.map { |id| content_class_name.constantize.find_by_id(id) }.compact
+        if @sort
+          values.sort_by { |v| v.id }
+        else
+          values
+        end
       else
         super
       end

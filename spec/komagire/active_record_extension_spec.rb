@@ -14,7 +14,7 @@ describe Komagire::ActiveRecordExtension do
     end
 
     class PostName < ActiveRecord::Base
-      composed_of_komagire_key_list :tags, :tag_names, 'Tag', :name, komagire: {delimiter: '|'}
+      composed_of_komagire_key_list :tags, :tag_names, 'Tag', :name, komagire: {delimiter: '|', sort: true}
     end
 
     let!(:ruby) { Tag.create(id: 1, name: 'ruby') }
@@ -52,7 +52,7 @@ describe Komagire::ActiveRecordExtension do
     end
 
     it 'should convert from Komagire::KeyList' do
-      list = Komagire::KeyList.new('Tag', :name, 'ruby|java', delimiter: '|')
+      list = Komagire::KeyList.new('Tag', :name, 'ruby|java', delimiter: '|', sort: true)
       post.tags = list
       expect(post.tag_names).to eq '|java|ruby|'
       post.save!
@@ -79,6 +79,22 @@ describe Komagire::ActiveRecordExtension do
       post.save!
       expect(post.tag_names).to eq '|ruby|'
     end
+
+    context 'not sorted' do
+      class PostNameNotSorted < ActiveRecord::Base
+        def self.table_name; 'post_names'; end
+        composed_of_komagire_key_list :tags, :tag_names, 'Tag', :name, komagire: {delimiter: '|', sort: false}
+      end
+
+      let(:not_sorted_post) { PostNameNotSorted.new }
+
+      it 'should convert from Array of String' do
+        not_sorted_post.tags = ['ruby', 'java']
+        expect(not_sorted_post.tag_names).to eq '|ruby|java|'
+        not_sorted_post.save!
+        expect(not_sorted_post.tag_names).to eq '|ruby|java|'
+      end
+    end
   end
 
   describe '#composed_of_komagire_id_list' do
@@ -87,7 +103,7 @@ describe Komagire::ActiveRecordExtension do
     end
 
     class PostId < ActiveRecord::Base
-      composed_of_komagire_id_list :tags, :tag_ids, 'Tag'
+      composed_of_komagire_id_list :tags, :tag_ids, 'Tag', komagire: {sort: true}
     end
 
     let!(:ruby) { Tag.create(id: 1, name: 'ruby') }
@@ -125,7 +141,7 @@ describe Komagire::ActiveRecordExtension do
     end
 
     it 'should convert from Komagire::IdList' do
-      list = Komagire::IdList.new('Tag', '1,3', delimiter: ',')
+      list = Komagire::IdList.new('Tag', '1,3', delimiter: ',', sort: true)
       post.tags = list
       expect(post.tag_ids).to eq ',1,3,'
       post.save!
@@ -176,7 +192,7 @@ describe Komagire::ActiveRecordExtension do
       end
 
       class PostAh < ActiveRecord::Base
-        composed_of_komagire_id_list :tags, :tag_ids, 'AhTag', komagire: {delimiter: ':'}
+        composed_of_komagire_id_list :tags, :tag_ids, 'AhTag', komagire: {delimiter: ':', sort: true}
       end
 
       let(:post) { PostAh.new }
@@ -210,7 +226,7 @@ describe Komagire::ActiveRecordExtension do
       end
 
       it 'should convert from Komagire::IdList' do
-        list = Komagire::IdList.new('AhTag', '1:3', delimiter: ':')
+        list = Komagire::IdList.new('AhTag', '1:3', delimiter: ':', sort: true)
         post.tags = list
         expect(post.tag_ids).to eq ':1:3:'
         post.save!
@@ -255,7 +271,7 @@ describe Komagire::ActiveRecordExtension do
       end
 
       class Product < ActiveRecord::Base
-        composed_of_komagire_id_list :product_types, :product_type_ids, 'ProductType'
+        composed_of_komagire_id_list :product_types, :product_type_ids, 'ProductType', komagire: {sort: true}
       end
 
       let(:product) { Product.new }
