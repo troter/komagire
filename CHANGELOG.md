@@ -1,5 +1,7 @@
 ## Unreleased
 
+## 0.2.0
+
 - Add sort option for comma separated keys order (default: false)
 
 ## 0.1.1
