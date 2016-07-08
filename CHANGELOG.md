@@ -1,5 +1,9 @@
 ## Unreleased
 
+## 0.2.1
+
+- Support Rails5 (#3)
+
 ## 0.2.0
 
 - Add sort option for comma separated keys order (default: false)
