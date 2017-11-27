@@ -1,5 +1,9 @@
 ## Unreleased
 
+- Support Rails 5.1 (#4)
+- Fix deprecation warning of simplecov (#5)
+- CI against Ruby 2.4 (#6)
+
 ## 0.2.1
 
 - Support Rails5 (#3)
