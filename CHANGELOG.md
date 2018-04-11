@@ -1,5 +1,7 @@
 ## Unreleased
 
+- Change support versions of Ruby and Rails (#7)
+
 ## 0.2.2
 
 - Support Rails 5.1 (#4)
