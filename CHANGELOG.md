@@ -1,5 +1,7 @@
 ## Unreleased
 
+- Add Rails 6.0.0.rc2 support and update Ruby version for CI (#8)
+
 ## 0.3.0
 
 - Change support versions of Ruby and Rails (#7)
