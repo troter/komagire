@@ -23,5 +23,3 @@ matrix:
       gemfile: gemfiles/rails_6.0.gemfile
   allow_failures:
     rvm: 2.7.0-preview1
-    gemfile:
-      gemfile: gemfiles/rails_6.0.gemfile
