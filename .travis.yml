@@ -15,10 +15,6 @@ script:
   - bundle exec rake spec
 matrix:
   exclude:
-    - rvm: 2.2.10
-      gemfile: gemfiles/rails_6.0.gemfile
-    - rvm: 2.3.7
-      gemfile: gemfiles/rails_6.0.gemfile
     - rvm: 2.4.6
       gemfile: gemfiles/rails_6.0.gemfile
   allow_failures:
