@@ -1,7 +1,5 @@
 language: ruby
 rvm:
-  - 2.2.10
-  - 2.3.7
   - 2.4.6
   - 2.5.5
   - 2.6.3
@@ -17,13 +15,7 @@ script:
   - bundle exec rake spec
 matrix:
   exclude:
-    - rvm: 2.2.10
-      gemfile: gemfiles/rails_6.0.gemfile
-    - rvm: 2.3.7
-      gemfile: gemfiles/rails_6.0.gemfile
     - rvm: 2.4.6
       gemfile: gemfiles/rails_6.0.gemfile
   allow_failures:
     rvm: 2.7.0-preview1
-    gemfile:
-      gemfile: gemfiles/rails_6.0.gemfile
