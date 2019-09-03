@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Komagire
   class IdList < KeyList
     # @param [String] content_class_name
@@ -28,7 +30,7 @@ module Komagire
       if ancestors.include?('ActiveHash::Base')
         values = _keys.map { |id| content_class_name.constantize.find_by_id(id) }.compact
         if @sort
-          values.sort_by { |v| v.id }
+          values.sort_by(&:id)
         else
           values
         end
@@ -39,15 +41,14 @@ module Komagire
 
     class Converter < KeyList::Converter
       def convert_to_cskeys_from_array(values)
-        case
-        when values.all? { |v| v.is_a?(String) }
+        if values.all? { |v| v.is_a?(String) }
           values.join(delimiter)
-        when values.all? { |v| v.is_a?(Integer) }
+        elsif values.all? { |v| v.is_a?(Integer) }
           values.join(delimiter)
-        when values.all? { |v| v.is_a?(content_class_name.constantize) }
+        elsif values.all? { |v| v.is_a?(content_class_name.constantize) }
           values.map(&attribute).join(delimiter)
         else
-          fail DifferentContentClass
+          raise DifferentContentClass
         end
       end
     end

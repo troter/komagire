@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Komagire
   class Railtie < Rails::Railtie
     initializer 'komagire' do

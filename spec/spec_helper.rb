@@ -1,4 +1,6 @@
-$LOAD_PATH.unshift File.expand_path('../../lib', __FILE__)
+# frozen_string_literal: true
+
+$LOAD_PATH.unshift File.expand_path('../lib', __dir__)
 require 'rubygems'
 require 'bundler/setup'
 
@@ -24,7 +26,7 @@ RSpec.configure do |config|
 end
 
 def create_temp_table(name, &block)
-  fail 'no block given!' unless block_given?
+  raise 'no block given!' unless block_given?
 
   before :each do
     m = ActiveRecord::Migration.new
