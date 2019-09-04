@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'komagire/version'
 require 'komagire/key_list'
 require 'komagire/id_list'

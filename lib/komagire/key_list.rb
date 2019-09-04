@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'delegate'
 
 module Komagire
@@ -79,27 +81,26 @@ module Komagire
           if value.content_class_name == content_class_name && value.attribute == attribute
             return value.cskeys
           end
-          fail DifferentContentClass
+
+          raise DifferentContentClass
         else
-          values = case
-                   when value.is_a?(Array) then value
-                   when value.respond_to?(:to_a) then value.to_a
-                   when value.respond_to?(:to_ary) then value.to_ary
+          values = if value.is_a?(Array) then value
+                   elsif value.respond_to?(:to_a) then value.to_a
+                   elsif value.respond_to?(:to_ary) then value.to_ary
                    else
-                     fail ArgumentError
+                     raise ArgumentError
                    end
           convert_to_cskeys_from_array(values.compact)
         end
       end
 
       def convert_to_cskeys_from_array(values)
-        case
-        when values.all? { |v| v.is_a?(String) }
+        if values.all? { |v| v.is_a?(String) }
           values.join(delimiter)
-        when values.all? { |v| v.is_a?(content_class_name.constantize) }
+        elsif values.all? { |v| v.is_a?(content_class_name.constantize) }
           values.map(&attribute).join(delimiter)
         else
-          fail ArgumentError
+          raise ArgumentError
         end
       end
     end
