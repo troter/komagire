@@ -25,7 +25,9 @@ describe Komagire::ActiveRecordExtension do
 
     let(:post) { PostName.new }
 
-    it 'empty' do
+    it 'should be empty without query' do
+      expect(Tag).not_to receive(:where)
+
       post.tags = ''
       expect(post.tag_names).to eq '|'
       post.save!
@@ -114,7 +116,9 @@ describe Komagire::ActiveRecordExtension do
 
     let(:post) { PostId.new }
 
-    it 'empty' do
+    it 'should be empty without query' do
+      expect(Tag).not_to receive(:where)
+
       post.tags = ''
       expect(post.tag_ids).to eq ','
       post.save!
@@ -199,7 +203,7 @@ describe Komagire::ActiveRecordExtension do
 
       let(:post) { PostAh.new }
 
-      it 'empty' do
+      it 'should be empty' do
         post.tags = ''
         expect(post.tag_ids).to eq ':'
         post.save!

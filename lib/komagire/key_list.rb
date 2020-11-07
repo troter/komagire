@@ -52,6 +52,8 @@ module Komagire
     end
 
     def _find_by_cskeys
+      return [] if _keys.empty?
+
       values = content_class_name.constantize.where(@attribute => _keys).compact
       if @sort
         values.sort_by { |v| v.public_send(@attribute) }
