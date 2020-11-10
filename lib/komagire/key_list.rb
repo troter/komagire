@@ -52,11 +52,14 @@ module Komagire
     end
 
     def _find_by_cskeys
-      values = content_class_name.constantize.where(@attribute => _keys).compact
+      keys = _keys
+      return [] if keys.empty?
+
+      values = content_class_name.constantize.where(@attribute => keys).compact
       if @sort
         values.sort_by { |v| v.public_send(@attribute) }
       else
-        values.index_by { |v| v.public_send(@attribute).to_s }.values_at(*_keys)
+        values.index_by { |v| v.public_send(@attribute).to_s }.values_at(*keys)
       end
     end
 
