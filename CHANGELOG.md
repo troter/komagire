@@ -1,5 +1,10 @@
 ## Unreleased
 
+- Support Ruby 2.7 (#10)
+- Change required ruby version to 2.4+ (#11)
+- Prevent extra query when cskeys are empty (#12)
+- Add support Rails 6.1.0.rc1 (#13)
+
 ## 0.4.0
 
 - CI against for Rails 6.0.0 and drop Ruby 2.2/2.3 supports (#9)
