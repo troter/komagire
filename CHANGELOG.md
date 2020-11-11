@@ -1,5 +1,7 @@
 ## Unreleased
 
+## 0.5.0
+
 - Support Ruby 2.7 (#10)
 - Change required ruby version to 2.4+ (#11)
 - Prevent extra query when cskeys are empty (#12)
