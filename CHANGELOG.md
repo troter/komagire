@@ -1,5 +1,9 @@
 ## Unreleased
 
+- Avoid needless override in `KeyList#freeze` (#13)
+- Change required ruby version to 2.6+ (#14)
+- Change required rails version to 5.2+ (#14)
+
 ## 0.5.0
 
 - Support Ruby 2.7 (#10)
