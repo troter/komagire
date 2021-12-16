@@ -32,15 +32,6 @@ module Komagire
       ([''] + key_values + ['']).join(@delimiter)
     end
 
-    def freeze
-      case __getobj__
-      when ActiveRecord::Relation
-        # avoid ActiveRecord::Relation is frozen
-      else
-        super
-      end
-    end
-
     private
 
     def _convert(cskeys)
