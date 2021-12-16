@@ -1,0 +1,39 @@
+name: Ruby
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+jobs:
+  test:
+
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        ruby-version: ['2.6', '2.7', '3.0']
+        rails-version: ['5.2', '6.0', '6.1', '7.0']
+        exclude:
+          - ruby-version: '2.6'
+            rails-version: '7.0'
+          - ruby-version: '2.7'
+            rails-version: '5.2'
+          - ruby-version: '3.0'
+            rails-version: '5.2'
+
+    env:
+      APPRAISAL: rails_${{ matrix.rails-version }}
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Set up Ruby
+      uses: ruby/setup-ruby@v1
+      with:
+        ruby-version: ${{ matrix.ruby-version }}
+    - name: Install dependencies
+      run: |
+        bundle install
+        bundle exec appraisal $APPRAISAL bundle install
+    - name: Run tests
+      run: bundle exec appraisal $APPRAISAL rake

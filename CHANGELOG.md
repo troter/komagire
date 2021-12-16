@@ -3,6 +3,7 @@
 - Avoid needless override in `KeyList#freeze` (#13)
 - Change required ruby version to 2.6+ (#14)
 - Change required rails version to 5.2+ (#14)
+- Migrate CI from Travis CI to GitHub Actions (#14)
 
 ## 0.5.0
 
