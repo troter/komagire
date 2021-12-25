@@ -1,5 +1,7 @@
 ## Unreleased
 
+- CI against for Ruby 3.1 (#16)
+
 ## 0.6.0
 
 - Avoid needless override in `KeyList#freeze` (#13)
