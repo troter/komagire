@@ -11,15 +11,21 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        ruby-version: ['2.6', '2.7', '3.0']
+        ruby-version: ['2.6', '2.7', '3.0', '3.1']
         rails-version: ['5.2', '6.0', '6.1', '7.0']
         exclude:
-          - ruby-version: '2.6'
-            rails-version: '7.0'
-          - ruby-version: '2.7'
-            rails-version: '5.2'
-          - ruby-version: '3.0'
-            rails-version: '5.2'
+        - ruby-version: '2.6'
+          rails-version: '7.0'
+        - ruby-version: '2.6'
+          rails-version: '7.1'
+        - ruby-version: '2.7'
+          rails-version: '5.2'
+        - ruby-version: '3.0'
+          rails-version: '5.2'
+        - ruby-version: '3.1'
+          rails-version: '5.2'
+        - ruby-version: '3.1'
+          rails-version: '7.0' # Rails 7.0.1 will start supporting Ruby 3.1, but Rails 7.0.1 has not been released yet
 
     env:
       APPRAISAL: rails_${{ matrix.rails-version }}
