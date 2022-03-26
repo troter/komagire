@@ -24,8 +24,6 @@ jobs:
           rails-version: '5.2'
         - ruby-version: '3.1'
           rails-version: '5.2'
-        - ruby-version: '3.1'
-          rails-version: '7.0' # Rails 7.0.1 will start supporting Ruby 3.1, but Rails 7.0.1 has not been released yet
 
     env:
       APPRAISAL: rails_${{ matrix.rails-version }}
