@@ -1,5 +1,7 @@
 ## Unreleased
 
+## 0.7.0
+
 - CI against for Ruby 3.1 (#16)
 
 ## 0.6.0
