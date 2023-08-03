@@ -1,5 +1,9 @@
 ## Unreleased
 
+- Change required ruby version to 2.7+ (#18)
+- Change required rails version to 6.0+ (#18)
+- CI against for Ruby 3.2 (#18)
+
 ## 0.7.0
 
 - CI against for Ruby 3.1 (#16)
